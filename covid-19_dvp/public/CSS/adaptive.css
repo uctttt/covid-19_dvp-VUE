@@ -1,0 +1,20 @@
+@media (max-width: 425px) {
+    body {
+        padding: 0;
+    }
+}
+
+@media(min-width: 426px) and (max-width: 768px) {
+    body {
+        padding: 4.5rem;
+    }
+}
+
+@media (min-width: 769px) {
+    body {
+        padding: 18rem;
+    }
+    .titleRight {
+        display: none;
+    }
+}
