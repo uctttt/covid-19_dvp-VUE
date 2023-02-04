@@ -9,8 +9,8 @@
 #activeBar {
     box-sizing: border-box;
     width: auto;
-    height: 17rem;
-    margin: auto .3125rem;
+    height: 16rem;
+    margin: 0 .625rem;
     overflow: hidden;
 }
 </style>
@@ -28,7 +28,6 @@ export default {
                 var nameData = [];
                 var valueData = [];
                 var data = res.data.data.list;
-                console.log(data);
                 data.forEach(element => {
                     activeData.push({
                         name: element.name,
@@ -97,8 +96,9 @@ export default {
                         {
                             type: 'inside',
                             startValue: nameData[0],
-                            endValue: nameData[3],
-                            maxValueSpan: 4,
+                            endValue: nameData[4],
+                            maxValueSpan: 7,
+                            minValueSpan: 3
                         }
                     ],
                     series: [

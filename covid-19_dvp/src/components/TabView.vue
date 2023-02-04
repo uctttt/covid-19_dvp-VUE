@@ -31,7 +31,7 @@
 </style>
 
 <script>
-	import WorldInfo from '@/components/WroldInfo.vue'
+	import WorldInfo from '@/components/info/WroldInfo.vue'
 	import InfoSwipe from "@/components/InfoSwipe.vue"	
 	import New from "@/components/New.vue"
 	import ChinaMap from "@/components/map/MapView.vue"

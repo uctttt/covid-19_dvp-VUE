@@ -7,6 +7,7 @@ const base = {
 
 const baseiIsaaclin = {
 	header:"https://lab.isaaclin.cn",
+	ncovUrl:"/nCoV/api/overall",
     newsUrl: "/nCoV/api/news",
     rumorsUrl: "/nCoV/api/rumors",
 }
@@ -16,6 +17,9 @@ const api = {
     //疫情数据
     getNcov() {
         return axios.get(base.baseUrl)
+    },
+	getNcovDX() {
+        return axios.get(baseiIsaaclin.header+baseiIsaaclin.ncovUrl)
     },
 	getNcovNews(page,num){
 		if (page == ''||num=='') {

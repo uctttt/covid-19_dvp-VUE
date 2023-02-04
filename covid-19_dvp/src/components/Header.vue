@@ -3,6 +3,7 @@
     <img src="../../public/PIC/backGround-PIC-M.png" alt="">
   </div>
 </template>
+
 <style lang="less" >
 .header-bgPic {
   z-index: 999;
@@ -17,6 +18,7 @@
   }
 }
 </style>
+
 <script>
 export default {
   data() {

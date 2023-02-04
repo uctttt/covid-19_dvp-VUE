@@ -1,9 +1,13 @@
 <template>
     <div>
         <div id="topNav">
-            <van-button type="primary" class="backBtn" @click="backHome">﹤返回</van-button>
+            <el-button type="primary" class="backBtn" @click="backHome">
+                <el-icon>
+                    <Back />
+                </el-icon> 返回</el-button>
         </div>
         <ProvinceMap :provincesName="this.city" />
+        <ProvinceInfo :provincesName="this.city"/>
     </div>
 </template>
 
@@ -20,11 +24,11 @@
     z-index: 99;
 
     .backBtn {
-        font-size: 16px;
+        font-size: 1rem;
         height: 2.75rem;
         width: 6rem;
         border: none;
-        background-color:rgb(94, 144, 236);
+        background-color: rgb(94, 144, 236);
         border-right: 1px solid rgb(164, 193, 247);
     }
 }
@@ -33,12 +37,15 @@
 <script>
 // @ is an alias to /src
 import ProvinceMap from '@/components/map/ProvinceMapView.vue'
+import ProvinceInfo from '@/components/info/ProvinceInfo.vue'
 
 export default {
     name: 'CityView',
     components: {
-        ProvinceMap,
-    },
+    ProvinceMap,
+    ProvinceInfo,
+    ProvinceInfo
+},
     methods: {
         backHome() {
             this.$router.push('/')

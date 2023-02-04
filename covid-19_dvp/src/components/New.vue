@@ -7,7 +7,7 @@
 				<div class="data" v-for="item in TD.slice(0, loadLimit)">
 					<el-row>
 						<el-col :span="5">
-							<div class="newsDate">{{ item.pubDate}}</div>
+							<div class="newsDate">{{ item.pubDate }}</div>
 						</el-col>
 						<el-col :span="18" :offset="1">
 							<div class="newsTitle">{{ item.title }}</div>
@@ -24,7 +24,7 @@
 						</el-col>
 					</el-row>
 				</div>
-				<div class="noData" v-show="TD==''" >暂无数据</div>
+				<div class="noData" v-show="TD == ''">暂无数据</div>
 			</div>
 			<div class="bottomBtn" @click="loadMore" v-if="!loadAll">
 				<div>加载更多</div>
@@ -59,10 +59,12 @@
 <style lang="less" scoped>
 .new {
 	padding: .625rem;
-.noData{
-	margin: 1.125rem 0;
-	font-weight: normal;
-}
+
+	.noData {
+		margin: 1.125rem 0;
+		font-weight: normal;
+	}
+
 	.blackBackground {
 		z-index: 98;
 		position: fixed;
@@ -98,7 +100,8 @@
 			margin: .625rem;
 
 			span {
-				color:  #4b4b4b;;
+				color: #4b4b4b;
+				;
 			}
 		}
 
@@ -126,8 +129,6 @@
 				text-align: left;
 			}
 		}
-
-
 	}
 
 	.data {
@@ -136,33 +137,28 @@
 		font-weight: normal;
 		font-size: .9375rem;
 		padding: .625rem 0;
-
 		.showNew {
 			font-size: .875rem;
 			color: gray;
 			border: 1px solid #e4e4e4a1;
 			border-radius: .3125rem;
 		}
-
 		.showNew:hover {
 			font-size: .875rem;
 			color: cornflowerblue;
 			border: 1px solid cornflowerblue;
 		}
-
 		.newsDate {
 			margin: .5rem auto;
 			font-size: .8125rem;
 			color: cornflowerblue;
 		}
-
 		.newsTitle {
 			margin-bottom: .4375rem;
 			min-height: 2.75rem;
 			font-size: 1.25rem;
 			text-align: start;
 		}
-
 		.newsFrom {
 			color: gray;
 		}
@@ -171,12 +167,10 @@
 	/deep/.el-card__body {
 		padding: .9375rem;
 	}
-
 	.title {
 		font-size: 1.625rem;
 		margin-bottom: .625rem;
 	}
-
 	.bottomBtn {
 		display: flex;
 		width: 15.75rem;
@@ -193,13 +187,11 @@
 		opacity: 0.8;
 		letter-spacing: .0625rem;
 		box-shadow: cornflowerblue 0rem .4375rem .125rem, #000 0rem .5rem .3125rem;
-
 		.el-icon {
 			width: 100%;
 			margin: auto;
 			color: #fff;
 		}
-
 		div {
 			margin-top: .3125rem;
 			text-align: center;
@@ -211,7 +203,6 @@
 	.bottomBtn:hover {
 		opacity: 1;
 	}
-
 	.bottomBtn:active {
 		top: 4px;
 		box-shadow: cornflowerblue 0rem .1875rem .125rem, #000 0rem .1875rem .3125rem;
@@ -307,11 +298,10 @@ export default {
 					}
 				})
 			}
-			this.newsList.forEach(ele=>{
-				ele.pubDate=this.getDate(ele.pubDate);
+			this.newsList.forEach(ele => {
+				ele.pubDate = this.getDate(ele.pubDate);
 			})
 		}).catch((error) => { });
-
 	},
 
 	computed: {

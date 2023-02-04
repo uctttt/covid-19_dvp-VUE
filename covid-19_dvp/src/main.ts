@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import { Button, Swipe, SwipeItem } from "vant";
-import './../public/rem';
+import '../public/JS/rem';
 import './../public/CSS/adaptive.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'

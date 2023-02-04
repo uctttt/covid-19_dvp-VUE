@@ -1,20 +1,32 @@
 @media (max-width: 425px) {
     body {
         padding: 0;
+        font-size: 1rem;
     }
 }
 
 @media(min-width: 426px) and (max-width: 768px) {
     body {
-        padding: 4.5rem;
+        padding: 0 4.5rem;
+        font-size: 1rem;
+    }
+    .header-bgPic {
+        display: none;
+    }
+    .blank {
+        display: none;
     }
 }
 
 @media (min-width: 769px) {
     body {
-        padding: 18rem;
+        padding: 0 20rem;
+        font-size: 1rem;
     }
-    .titleRight {
+    .header-bgPic {
+        display: none;
+    }
+    .blank {
         display: none;
     }
 }

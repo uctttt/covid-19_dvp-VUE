@@ -9,8 +9,8 @@
 #importedBar {
     box-sizing: border-box;
     width: auto;
-    height: 17rem;
-    margin: auto 5px;
+    height: 16rem;
+    margin: 0 .625rem;
     overflow: hidden;
 }
 </style>

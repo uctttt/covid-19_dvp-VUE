@@ -5,6 +5,7 @@
     <DailyInfo :DailyInfoData="DailyInfoData" />
     <TabView />
   </div>
+  <div class="cover"></div>
 </template>
 
 <style lang="less">
@@ -15,18 +16,33 @@
   font-size: 0;
   width: 100%;
 }
+.home{
+  position: relative;
+  z-index: 99;
+  background-color: rgb(255, 255, 255);
+  padding: .9375rem .625rem;
+}
+.cover {
+  position: fixed;
+  box-sizing: content-box;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(247, 247, 247);
+}
 </style>
 
 <script>
 // @ is an alias to /src
 import Header from '@/components/Header'
-import DailyInfo from '@/components/DailyInfo'
+import DailyInfo from '@/components/info/DailyInfo'
 import TabView from '@/components/TabView'
 import api from '@/api'
 
 export default {
   name: 'HomeView',
-  
+
   components: {
     Header,
     DailyInfo,
@@ -61,10 +77,12 @@ export default {
     },
   },
 
+  created(){
+    for (let key in this.DailyInfoData) {
+      this.DailyInfoData[key] = "未公布";
+    }
+  },
   mounted() {
-	  for (let key in this.DailyInfoData) {
-	    this.DailyInfoData[key] = "未公布";
-	  }
     api.getNcov().then((res) => {
       let data = res.data.data
       if (res.status === 200) {
@@ -75,7 +93,7 @@ export default {
         this.DailyInfoData.curedCount = data.curetotal;
         this.DailyInfoData.suspectedCount = data.country.totalDoubtful;
       }
-    }).catch((error) => { });
+    }).catch((error) => { });e
   }
 }
 </script>
