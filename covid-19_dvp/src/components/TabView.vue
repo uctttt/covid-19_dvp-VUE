@@ -31,7 +31,11 @@
 </style>
 
 <script>
+<<<<<<< HEAD
 	import WorldInfo from '@/components/info/WroldInfo.vue'
+=======
+	import WorldInfo from '@/components/WroldInfo.vue'
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 	import InfoSwipe from "@/components/InfoSwipe.vue"	
 	import New from "@/components/New.vue"
 	import ChinaMap from "@/components/map/MapView.vue"

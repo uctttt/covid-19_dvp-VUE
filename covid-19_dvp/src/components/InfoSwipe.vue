@@ -1,6 +1,7 @@
 <template>
   <div class="swipe">
     <div class="swipe-title">
+<<<<<<< HEAD
       <div class="titleLeft">各省市病例数据榜单</div>
       <div class="titleRight">点击图表两侧切换榜单</div>
     </div>
@@ -18,12 +19,28 @@
   </div>
 </template>
 
+=======
+      <div class="titleLeft">各省市确诊数据榜单</div>
+      <div class="titleRight">滑动以切换图表</div>
+    </div>
+    <van-swipe duration="800" :loop="false">
+      <van-swipe-item width="350px">
+        <CityImported />
+      </van-swipe-item>
+      <van-swipe-item width="350px">
+        <CityActive />
+      </van-swipe-item>
+    </van-swipe>
+  </div>
+</template>
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 <style lang="less" scoped>
 .swipe {
   box-sizing: border-box;
   width: 100%;
   margin-top: .9375rem;
 
+<<<<<<< HEAD
   /deep/.el-carousel__arrow {
     height: 100%;
     background-color: rgba(250, 235, 215, 0);
@@ -38,6 +55,8 @@
     }
   }
 
+=======
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
   .swipe-title {
     text-align: start;
     font-weight: normal;
@@ -61,6 +80,7 @@
 </style>
 
 <script>
+<<<<<<< HEAD
 import infoBar from '@/components/bar chart/infoBar.vue'
 import api from '@/api/getNcovAPI'
 
@@ -123,5 +143,20 @@ export default {
       this.loadingOver = true;
     })
   }
+=======
+import CityImported from '@/components/bar chart/CityImported.vue'
+import CityActive from '@/components/bar chart/CityActive.vue'
+
+export default {
+  name: 'InfoSwipe',
+  components: {
+    CityImported,
+    CityActive,
+  },
+  data() {
+    return {
+    }
+  },
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 }
 </script>

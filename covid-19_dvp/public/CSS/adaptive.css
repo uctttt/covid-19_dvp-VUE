@@ -1,12 +1,16 @@
 @media (max-width: 425px) {
     body {
         padding: 0;
+<<<<<<< HEAD
         font-size: 1rem;
+=======
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
     }
 }
 
 @media(min-width: 426px) and (max-width: 768px) {
     body {
+<<<<<<< HEAD
         padding: 0 4.5rem;
         font-size: 1rem;
     }
@@ -15,11 +19,15 @@
     }
     .blank {
         display: none;
+=======
+        padding: 4.5rem;
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
     }
 }
 
 @media (min-width: 769px) {
     body {
+<<<<<<< HEAD
         padding: 0 20rem;
         font-size: 1rem;
     }
@@ -27,6 +35,11 @@
         display: none;
     }
     .blank {
+=======
+        padding: 18rem;
+    }
+    .titleRight {
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
         display: none;
     }
 }

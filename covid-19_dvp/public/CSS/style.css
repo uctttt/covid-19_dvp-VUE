@@ -3,8 +3,11 @@
     padding: 0;
     box-sizing: border-box;
     transition: all .1s;
+<<<<<<< HEAD
 }
 
 .el-icon {
     margin: .3125rem;
+=======
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 }

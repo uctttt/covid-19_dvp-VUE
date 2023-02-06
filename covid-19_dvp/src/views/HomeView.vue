@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <div class="home">
       <Header />
@@ -8,6 +9,13 @@
     </div>
     <div class="cover"></div>
     <Login />
+=======
+  <div class="home">
+    <Header />
+    <div class="blank" style="height: 100vh;"></div>
+    <DailyInfo :DailyInfoData="DailyInfoData" />
+    <TabView />
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
   </div>
 </template>
 
@@ -19,6 +27,7 @@
   font-size: 0;
   width: 100%;
 }
+<<<<<<< HEAD
 
 .home {
   position: relative;
@@ -36,11 +45,14 @@
   width: 100vw;
   background-color: rgb(247, 247, 247);
 }
+=======
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 </style>
 
 <script>
 // @ is an alias to /src
 import Header from '@/components/Header'
+<<<<<<< HEAD
 import DailyInfo from '@/components/info/DailyInfo'
 import TabView from '@/components/TabView'
 import Login from '@/components/users/login'
@@ -50,11 +62,23 @@ import userSystem from '@/api/userSystemAPI'
 export default {
   name: 'HomeView',
 
+=======
+import DailyInfo from '@/components/DailyInfo'
+import TabView from '@/components/TabView'
+import api from '@/api'
+
+export default {
+  name: 'HomeView',
+  
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
   components: {
     Header,
     DailyInfo,
     TabView,
+<<<<<<< HEAD
     Login,
+=======
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
   },
 
   data() {
@@ -85,6 +109,7 @@ export default {
     },
   },
 
+<<<<<<< HEAD
   created() {
     for (let key in this.DailyInfoData) {
       this.DailyInfoData[key] = "未公布";
@@ -97,6 +122,15 @@ export default {
     api.getNcov().then((res) => {
       if (res.status === 200) {
         let data = res.data.data;
+=======
+  mounted() {
+	  for (let key in this.DailyInfoData) {
+	    this.DailyInfoData[key] = "未公布";
+	  }
+    api.getNcov().then((res) => {
+      let data = res.data.data
+      if (res.status === 200) {
+>>>>>>> fe33b65b667055bd0d038682577754640267fcd6
         this.DailyInfoData.modifyTime = data.mtime;
         this.DailyInfoData.currentConfirmedCount = data.econNum;
         this.DailyInfoData.confirmedCount = data.gntotal;
