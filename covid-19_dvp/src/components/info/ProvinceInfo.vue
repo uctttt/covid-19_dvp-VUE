@@ -85,7 +85,7 @@
 </style>
 
 <script>
-import api from '@/api'
+import api from '@/api/getNcovAPI'
 
 export default {
     data() {
@@ -94,12 +94,14 @@ export default {
             provincesData: [],
         }
     },
+
     props: {
         provincesName: {
             type: String,
             default: '',
         },
     },
+
     methods: {
         sort_change(column) {
             this.proptype = column.prop;
@@ -119,7 +121,7 @@ export default {
         },
     },
 
-    created() {
+    mounted() {
         api.getNcov().then((res) => {
             if (res.status === 200) {
                 var data = res.data.data.list;

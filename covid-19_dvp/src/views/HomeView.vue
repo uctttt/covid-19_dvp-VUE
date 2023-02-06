@@ -1,11 +1,14 @@
 <template>
-  <div class="home">
-    <Header />
-    <div class="blank" style="height: 100vh;"></div>
-    <DailyInfo :DailyInfoData="DailyInfoData" />
-    <TabView />
+  <div>
+    <div class="home">
+      <Header />
+      <div class="blank" style="height: 100vh;"></div>
+      <DailyInfo :DailyInfoData="DailyInfoData" />
+      <TabView />
+    </div>
+    <div class="cover"></div>
+    <Login />
   </div>
-  <div class="cover"></div>
 </template>
 
 <style lang="less">
@@ -16,12 +19,14 @@
   font-size: 0;
   width: 100%;
 }
-.home{
+
+.home {
   position: relative;
   z-index: 99;
   background-color: rgb(255, 255, 255);
   padding: .9375rem .625rem;
 }
+
 .cover {
   position: fixed;
   box-sizing: content-box;
@@ -38,7 +43,9 @@
 import Header from '@/components/Header'
 import DailyInfo from '@/components/info/DailyInfo'
 import TabView from '@/components/TabView'
-import api from '@/api'
+import Login from '@/components/users/login'
+import api from '@/api/getNcovAPI'
+import userSystem from '@/api/userSystemAPI'
 
 export default {
   name: 'HomeView',
@@ -47,6 +54,7 @@ export default {
     Header,
     DailyInfo,
     TabView,
+    Login,
   },
 
   data() {
@@ -77,15 +85,18 @@ export default {
     },
   },
 
-  created(){
+  created() {
     for (let key in this.DailyInfoData) {
       this.DailyInfoData[key] = "未公布";
-    }
-  },
-  mounted() {
+    };
+
+    userSystem.checkAPI().then((res) => {
+      console.log(res);
+    });
+
     api.getNcov().then((res) => {
-      let data = res.data.data
       if (res.status === 200) {
+        let data = res.data.data;
         this.DailyInfoData.modifyTime = data.mtime;
         this.DailyInfoData.currentConfirmedCount = data.econNum;
         this.DailyInfoData.confirmedCount = data.gntotal;
@@ -93,7 +104,7 @@ export default {
         this.DailyInfoData.curedCount = data.curetotal;
         this.DailyInfoData.suspectedCount = data.country.totalDoubtful;
       }
-    }).catch((error) => { });e
+    }).catch((error) => { });
   }
 }
 </script>

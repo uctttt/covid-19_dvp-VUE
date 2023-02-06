@@ -18,9 +18,11 @@ const api = {
     getNcov() {
         return axios.get(base.baseUrl)
     },
+	
 	getNcovDX() {
         return axios.get(baseiIsaaclin.header+baseiIsaaclin.ncovUrl)
     },
+
 	getNcovNews(page,num){
 		if (page == ''||num=='') {
 			return axios.get(baseiIsaaclin.header+baseiIsaaclin.newsUrl)
@@ -28,6 +30,7 @@ const api = {
 			return axios.get(`${baseiIsaaclin.header}${baseiIsaaclin.newsUrl}?page=${page}&num=${num}`)
 		}
 	},
+
 	getNcovRumors(){
 		return axios.get(baseiIsaaclin.header+baseiIsaaclin.rumorsUrl)
 	},

@@ -27,7 +27,8 @@
         overflow: hidden;
     }
 }
-.slider-demo-block{
+
+.slider-demo-block {
     width: 20rem;
     margin: auto;
 }
@@ -35,7 +36,7 @@
 
 <script>
 import * as echarts from "echarts";
-import api from '@/api'
+import api from '@/api/getNcovAPI'
 import china from '@/../node_modules/echarts/map/json/china.json'
 echarts.registerMap('china', china)
 
@@ -47,6 +48,7 @@ export default {
             zoom: 1,
         }
     },
+
     methods: {
         makeChinaMap() {
             this.myChart = echarts.init(document.getElementById("china"));
@@ -126,14 +128,13 @@ export default {
             }
             this.myChart.setOption(option, { lazyMode: true });
             window.addEventListener(
-            'resize',
-            () => {
-                setTimeout(() => {
-                    this.myChart.resize();
-                }, 100)
-            },
-            false,
-        )
+                'resize',
+                () => {
+                    setTimeout(() => {
+                        this.myChart.resize();
+                    }, 100)
+                }
+            )
         },
     },
 
@@ -158,10 +159,6 @@ export default {
                 this.makeChinaMap();
             }, 100)
         }).catch((error) => { });
-    },
-
-    mounted() {
-       
     },
 };
 </script>

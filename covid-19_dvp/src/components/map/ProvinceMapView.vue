@@ -29,7 +29,7 @@
 
 <script>
 import * as echarts from "echarts";
-import api from '@/api'
+import api from '@/api/getNcovAPI'
 import "@/../node_modules/echarts/map/js/china"
 import "@/../node_modules/echarts/map/js/world"
 import "@/../node_modules/echarts/map/js/province/anhui"
@@ -76,7 +76,7 @@ export default {
             myChartProvince: null
         }
     },
-    
+
     props: {
         provincesName: {
             type: String,
@@ -97,116 +97,118 @@ export default {
         desSort(a, b) {
             return b[this.proptype] - a[this.proptype];
         },
-        
+
         ascSort(a, b) {
             return a[this.proptype] - b[this.proptype];
         },
 
         makeProvinceMap() {
-            api.getNcov().then((res) => {
-                if (res.status === 200) {
-                    this.myChartProvince = echarts.init(document.getElementById("province"));
-                    var data = res.data.data.list;
-                    data.forEach(element => {
-                        if (element.name == this.provincesName) {
-                            this.province = element
-                        }
-                    });
-                    for (let i = 0; i < this.province.city.length; i++) {
-                        if (this.province.city[i].mapName !== '') {
-                            var temp = {
-                                name: this.province.city[i].mapName,
-                                value: this.province.city[i].econNum,
-                                totalNum: this.province.city[i].conNum,
-                                cureNum: this.province.city[i].cureNum,
-                            }
-                            this.provincesData.push(temp)
-                        }
+            var option = {
+                //左侧小导航图标
+                visualMap: {
+                    align: "left",
+                    show: true,
+                    x: 'left',
+                    y: 'bottom',
+                    type: "piecewise",
+                    backgroundColor: "rgba(75, 75, 75, 0.5)",
+                    textStyle: {
+                        fontSize: 12,
+                        color: '#ffffff',
+                        fontWeight: "bold",
+                    },
+                    pieces: [
+                        { min: 0, max: 0, color: "#FFFFFF" },
+                        { min: 1, max: 9, color: "#FDFDCF" },
+                        { min: 10, max: 99, color: "#ffb19b" },
+                        { min: 100, max: 999, color: "#f54655" },
+                        { min: 1000, max: 9999, color: "#b41724" },
+                        { min: 9999, color: "#4e4e4e" }
+                    ]
+                },
+                //浮框
+                tooltip: {
+                    trigger: 'item',
+                    showDelay: 0,
+                    backgroundColor: "rgba(75, 75, 75, 0.5)",
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        return "现存确诊人数<br/>" + params.data.name +
+                            ':' + params.data.value;
                     }
-                    var option = {
-                        //左侧小导航图标
-                        visualMap: {
-                            align: "left",
-                            show: true,
-                            x: 'left',
-                            y: 'bottom',
-                            type: "piecewise",
-                            backgroundColor: "rgba(75, 75, 75, 0.5)",
+                },
+                //配置属性
+                series: {
+                    type: "map",// 配置图表类型
+                    map: this.province.name, // 市/区级地图
+                    roam: true,// 是否允许自动缩放
+                    zoom: 1.3,// 地图缩放比例
+                    scaleLimit: {
+                        max: 3,
+                        min: 1
+                    },
+                    label: {      // 配置字体
+                        normal: {
+                            show: false,
                             textStyle: {
-                                fontSize: 12,
-                                color: '#ffffff',
                                 fontWeight: "bold",
+                                fontSize: 16,
+                                textBorderColor: 'rgba(255, 255, 255, 0.6)',
+                                textBorderWidth: 3,
                             },
-                            pieces: [
-                                { min: 0, max: 0, color: "#FFFFFF" },
-                                { min: 1, max: 9, color: "#FDFDCF" },
-                                { min: 10, max: 99, color: "#ffb19b" },
-                                { min: 100, max: 999, color: "#f54655" },
-                                { min: 1000, max: 9999, color: "#b41724" },
-                                { min: 9999, color: "#4e4e4e" }
-                            ]
-                        },
-                        //浮框
-                        tooltip: {
-                            trigger: 'item',
-                            showDelay: 0,
-                            backgroundColor: "rgba(75, 75, 75, 0.5)",
-                            transitionDuration: 0.2,
-                            formatter: function (params) {
-                                return "现存确诊人数<br/>" + params.data.name +
-                                    ':' + params.data.value;
-                            }
-                        },
-                        //配置属性
-                        series: {
-                            type: "map",// 配置图表类型
-                            map: this.province.name, // 市/区级地图
-                            roam: true,// 是否允许自动缩放
-                            zoom: 1.3,// 地图缩放比例
-                            scaleLimit: {
-                                max: 3,
-                                min: 1
-                            },
-                            label: {      // 配置字体
-                                normal: {
-                                    show: false,
-                                    textStyle: {
-                                        fontWeight: "bold",
-                                        fontSize: 16,
-                                        textBorderColor: 'rgba(255, 255, 255, 0.6)',
-                                        textBorderWidth: 3,
-                                    },
-                                }
-                            },
-                            itemStyle: {  // 配置地图样式
-                                emphasis: { // 选中的区域颜色及阴影效果等
-                                    areaColor: 'rgba(255,180,0,0.8)',
-                                    shadowColor: 'rgba(0,0,0,0.5)',
-                                    shadowOffsetX: 1,
-                                    shadowOffsetY: 1,
-                                    shadowBlur: 20,
-                                    borderWidth: 0,
-                                }
-                            },
-                            data: this.provincesData,
-                        },
-                    }
-                    this.myChartProvince.setOption(option);
-                    window.addEventListener(
-                        'resize',
-                        () => {
-                            setTimeout(() => {
-                                this.myChartProvince.resize();
-                            }, 100)
-                        },
-                        false,
-                    )
+                        }
+                    },
+                    itemStyle: {  // 配置地图样式
+                        emphasis: { // 选中的区域颜色及阴影效果等
+                            areaColor: 'rgba(255,180,0,0.8)',
+                            shadowColor: 'rgba(0,0,0,0.5)',
+                            shadowOffsetX: 1,
+                            shadowOffsetY: 1,
+                            shadowBlur: 20,
+                            borderWidth: 0,
+                        }
+                    },
+                    data: this.provincesData,
+                },
+            }
+            this.myChartProvince.setOption(option);
+            window.addEventListener(
+                'resize',
+                () => {
+                    setTimeout(() => {
+                        this.myChartProvince.resize();
+                    }, 100)
                 }
-            }).catch((error) => { });
+            )
         }
     },
 
     created() {
+        api.getNcov().then((res) => {
+            if (res.status === 200) {
+                this.myChartProvince = echarts.init(document.getElementById("province"));
+                var data = res.data.data.list;
+                data.forEach(element => {
+                    if (element.name == this.provincesName) {
+                        this.province = element
+                    }
+                });
+                for (let i = 0; i < this.province.city.length; i++) {
+                    if (this.province.city[i].mapName !== '') {
+                        var temp = {
+                            name: this.province.city[i].mapName,
+                            value: this.province.city[i].econNum,
+                            totalNum: this.province.city[i].conNum,
+                            cureNum: this.province.city[i].cureNum,
+                        }
+                        this.provincesData.push(temp)
+                    }
+                }
+            }
+        }).catch((error) => { });
+    },
+
+    mounted() {
         setTimeout(() => {
             this.makeProvinceMap();
         }, 100)

@@ -36,7 +36,7 @@
 
 <script>
 import * as echarts from "echarts";
-import api from '@/api'
+import api from '@/api/getNcovAPI'
 import world from '@/../node_modules/echarts/map/json/world.json'
 echarts.registerMap('world', world)
 
@@ -298,14 +298,13 @@ export default {
             }
             this.myChartWorld.setOption(option, { lazyMode: true });
             window.addEventListener(
-            'resize',
-            () => {
-                setTimeout(() => {
-                    this.myChartWorld.resize();
-                }, 100)
-            },
-            false,
-        )
+                'resize',
+                () => {
+                    setTimeout(() => {
+                        this.myChartWorld.resize();
+                    }, 100)
+                }
+            )
         }
     },
 
@@ -333,7 +332,7 @@ export default {
     },
 
     mounted() {
-      
+
     },
 };
 </script>

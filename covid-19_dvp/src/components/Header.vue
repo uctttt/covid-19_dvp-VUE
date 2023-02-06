@@ -1,11 +1,11 @@
 <template>
-  <div class="header-bgPic" :style='styleSet'>
+  <div class="header" :style='styleSet'>
     <img src="../../public/PIC/backGround-PIC-M.png" alt="">
   </div>
 </template>
 
 <style lang="less" >
-.header-bgPic {
+.header {
   z-index: 999;
   position: absolute;
   top: 0;

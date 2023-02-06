@@ -137,28 +137,33 @@
 		font-weight: normal;
 		font-size: .9375rem;
 		padding: .625rem 0;
+
 		.showNew {
 			font-size: .875rem;
 			color: gray;
 			border: 1px solid #e4e4e4a1;
 			border-radius: .3125rem;
 		}
+
 		.showNew:hover {
 			font-size: .875rem;
 			color: cornflowerblue;
 			border: 1px solid cornflowerblue;
 		}
+
 		.newsDate {
 			margin: .5rem auto;
 			font-size: .8125rem;
 			color: cornflowerblue;
 		}
+
 		.newsTitle {
 			margin-bottom: .4375rem;
 			min-height: 2.75rem;
 			font-size: 1.25rem;
 			text-align: start;
 		}
+
 		.newsFrom {
 			color: gray;
 		}
@@ -167,10 +172,12 @@
 	/deep/.el-card__body {
 		padding: .9375rem;
 	}
+
 	.title {
 		font-size: 1.625rem;
 		margin-bottom: .625rem;
 	}
+
 	.bottomBtn {
 		display: flex;
 		width: 15.75rem;
@@ -187,11 +194,13 @@
 		opacity: 0.8;
 		letter-spacing: .0625rem;
 		box-shadow: cornflowerblue 0rem .4375rem .125rem, #000 0rem .5rem .3125rem;
+
 		.el-icon {
 			width: 100%;
 			margin: auto;
 			color: #fff;
 		}
+
 		div {
 			margin-top: .3125rem;
 			text-align: center;
@@ -203,6 +212,7 @@
 	.bottomBtn:hover {
 		opacity: 1;
 	}
+
 	.bottomBtn:active {
 		top: 4px;
 		box-shadow: cornflowerblue 0rem .1875rem .125rem, #000 0rem .1875rem .3125rem;
@@ -211,7 +221,7 @@
 </style>
 
 <script>
-import api from '@/api'
+import api from '@/api/getNcovAPI'
 import { ElMessage, ElMessageBox } from 'element-plus'
 export default {
 	data() {
@@ -289,9 +299,9 @@ export default {
 	},
 
 	mounted() {
-		api.getNcovNews(1, 100).then((res) => {
-			let data = res.data
+		api.getNcovNews(1, 200).then((res) => {
 			if (res.status === 200) {
+				let data = res.data
 				data.results.forEach(ele => {
 					if (ele.sourceUrl != '') {
 						this.newsList.push(ele);
