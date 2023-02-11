@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="header" :style='styleSet'>
     <img src="../../public/PIC/backGround-PIC-M.png" alt="">
   </div>
@@ -7,14 +6,6 @@
 
 <style lang="less" >
 .header {
-=======
-  <div class="header-bgPic" :style='styleSet'>
-    <img src="../../public/PIC/backGround-PIC-M.png" alt="">
-  </div>
-</template>
-<style lang="less" >
-.header-bgPic {
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
   z-index: 999;
   position: absolute;
   top: 0;
@@ -27,10 +18,6 @@
   }
 }
 </style>
-<<<<<<< HEAD
-
-=======
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 <script>
 export default {
   data() {

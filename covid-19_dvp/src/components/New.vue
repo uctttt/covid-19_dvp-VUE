@@ -1,17 +1,13 @@
 <template>
 	<div class="new" id="newPage">
-		<el-card class="box-card">
+		<el-card>
 			<div class="title">疫情时讯</div>
 			<div class="body">
 				<el-input v-model="search" placeholder="搜索新闻标题/时间/内容" clearable />
 				<div class="data" v-for="item in TD.slice(0, loadLimit)">
 					<el-row>
 						<el-col :span="5">
-<<<<<<< HEAD
 							<div class="newsDate">{{ item.pubDate }}</div>
-=======
-							<div class="newsDate">{{ item.pubDate}}</div>
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 						</el-col>
 						<el-col :span="18" :offset="1">
 							<div class="newsTitle">{{ item.title }}</div>
@@ -28,11 +24,7 @@
 						</el-col>
 					</el-row>
 				</div>
-<<<<<<< HEAD
 				<div class="noData" v-show="TD == ''">暂无数据</div>
-=======
-				<div class="noData" v-show="TD==''" >暂无数据</div>
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 			</div>
 			<div class="bottomBtn" @click="loadMore" v-if="!loadAll">
 				<div>加载更多</div>
@@ -49,12 +41,12 @@
 		</el-card>
 		<div class="newContent" @touchmove.prevent @mousewheel.prevent v-if="showContent">
 			<div class="contentBody">
-				<el-card class="box-card">
+				<el-card>
 					<div class="contentTitle">{{ this.newsContent.title }}</div>
 					<div class="contentFrom">本条新闻来自：<span>{{ this.newsContent.infoSource }}</span></div>
 					<div class="contentTime">{{ this.newsContent.pubDate }}</div>
 					<div class="content">
-						{{ this.newsContent.summary }}<span class="goOutside" @click="goOutsideCheck">……查看更多</span>
+						{{ this.newsContent.summary }}<span title="前往站外网址" class="goOutside" @click="goOutsideCheck">……查看更多</span>
 					</div>
 				</el-card>
 			</div>
@@ -67,19 +59,17 @@
 <style lang="less" scoped>
 .new {
 	padding: .625rem;
-<<<<<<< HEAD
+
+	.el-input {
+		height: 1.5rem;
+		font-size: .8rem;
+	}
 
 	.noData {
 		margin: 1.125rem 0;
 		font-weight: normal;
 	}
 
-=======
-.noData{
-	margin: 1.125rem 0;
-	font-weight: normal;
-}
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 	.blackBackground {
 		z-index: 98;
 		position: fixed;
@@ -115,12 +105,8 @@
 			margin: .625rem;
 
 			span {
-<<<<<<< HEAD
 				color: #4b4b4b;
 				;
-=======
-				color:  #4b4b4b;;
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 			}
 		}
 
@@ -141,18 +127,17 @@
 			text-align: left;
 			margin-bottom: 1.125rem;
 
-			span {
+			.goOutside {
 				color: rgb(100, 148, 237);
 				font-size: .9375rem;
 				font-weight: normal;
 				text-align: left;
 			}
+			.goOutside:hover{
+				color: rgb(78, 130, 226);
+				cursor: pointer;
+			}
 		}
-<<<<<<< HEAD
-=======
-
-
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 	}
 
 	.data {
@@ -163,16 +148,17 @@
 		padding: .625rem 0;
 
 		.showNew {
+			padding: .1rem 0;
 			font-size: .875rem;
 			color: gray;
 			border: 1px solid #e4e4e4a1;
-			border-radius: .3125rem;
+			border-radius: .5rem;
 		}
 
 		.showNew:hover {
-			font-size: .875rem;
 			color: cornflowerblue;
 			border: 1px solid cornflowerblue;
+			cursor: pointer;
 		}
 
 		.newsDate {
@@ -198,8 +184,8 @@
 	}
 
 	.title {
-		font-size: 1.625rem;
-		margin-bottom: .625rem;
+		font-size: 1.7rem;
+		margin: .8rem auto 1.2rem;
 	}
 
 	.bottomBtn {
@@ -245,11 +231,7 @@
 </style>
 
 <script>
-<<<<<<< HEAD
 import api from '@/api/getNcovAPI'
-=======
-import api from '@/api'
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 import { ElMessage, ElMessageBox } from 'element-plus'
 export default {
 	data() {
@@ -327,33 +309,19 @@ export default {
 	},
 
 	mounted() {
-<<<<<<< HEAD
-		api.getNcovNews(1, 200).then((res) => {
+		api.getNcovNews(1, 50).then((res) => {
 			if (res.status === 200) {
 				let data = res.data
-=======
-		api.getNcovNews(1, 100).then((res) => {
-			let data = res.data
-			if (res.status === 200) {
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 				data.results.forEach(ele => {
 					if (ele.sourceUrl != '') {
 						this.newsList.push(ele);
 					}
 				})
 			}
-<<<<<<< HEAD
 			this.newsList.forEach(ele => {
 				ele.pubDate = this.getDate(ele.pubDate);
 			})
 		}).catch((error) => { });
-=======
-			this.newsList.forEach(ele=>{
-				ele.pubDate=this.getDate(ele.pubDate);
-			})
-		}).catch((error) => { });
-
->>>>>>> fe33b65b667055bd0d038682577754640267fcd6
 	},
 
 	computed: {

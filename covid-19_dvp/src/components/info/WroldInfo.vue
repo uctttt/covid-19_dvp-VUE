@@ -25,10 +25,9 @@
 				</li>
 			</ul>
 			<div id="infoTbale">
-				<el-card class="box-card">
+				<el-card>
 					<el-input v-model="search" placeholder="搜索地区名称" @input='limitInput' clearable />
 					<el-table :data="TD.slice(0, loadLimit)" @sort-change='sort_change' stripe style="width: 100%">
-						<el-table-column type="index" :index="indexMethod" />
 						<el-table-column prop="name" label="地区名称" />
 						<el-table-column prop="econNum" label="现存确诊" sortable="custom" />
 						<el-table-column prop="conNum" label="累计确诊" sortable="custom" />
@@ -114,6 +113,15 @@ div {
 		box-sizing: border-box;
 		margin: .625rem 0;
 
+		.el-table {
+			font-size: .8rem;
+		}
+
+		.el-input {
+			height: 1.5rem;
+			font-size: .8rem;
+		}
+
 		/deep/ .el-card__body {
 			padding-bottom: .3125rem;
 		}
@@ -142,12 +150,12 @@ div {
 				height: 1.75rem;
 				line-height: 1.75rem;
 				font-weight: bold;
-				font-size: 1.625rem;
+				font-size: 1.5rem;
 				text-align: center;
 			}
 
 			.dataType {
-				font-size: 1.125rem;
+				font-size: 1.1rem;
 				font-weight: bold;
 				text-align: center;
 			}

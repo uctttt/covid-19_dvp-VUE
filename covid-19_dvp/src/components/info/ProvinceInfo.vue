@@ -1,53 +1,55 @@
 <template>
     <div>
-        <el-card class="box-card topCard">
-            <el-row>
-                <div class="titel">
-                    {{ province.name }}疫情数据
-                </div>
-            </el-row>
-            <el-row>
-                <el-col :span="12">
-                    <el-card class="box-card" shadow="never">
-                        <div class="value">{{ province.econNum }}</div>
-                        <div class="type">现存确诊</div>
-                    </el-card>
-                </el-col>
-                <el-col :span="12">
-                    <el-card class="box-card" shadow="never">
-                        <div class="value">{{ province.value }}</div>
-                        <div class="type">累计确诊</div>
-                    </el-card>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="8">
-                    <el-card class="box-card" shadow="never">
-                        <div class="value">{{ province.jwsrNum }}</div>
-                        <div class="type">境外输入</div>
-                    </el-card>
-                </el-col>
-                <el-col :span="8">
-                    <el-card class="box-card" shadow="never">
-                        <div class="value">{{ province.cureNum }}</div>
-                        <div class="type">累计治愈</div>
-                    </el-card>
-                </el-col>
-                <el-col :span="8">
-                    <el-card class="box-card" shadow="never">
-                        <div class="value">{{ province.deathNum }}</div>
-                        <div class="type">累计死亡</div>
-                    </el-card>
-                </el-col>
-            </el-row>
-        </el-card>
-        <el-card class="box-card">
-            <el-table :data="provincesData" @sort-change='sort_change' stripe style="width: 100%">
-                <el-table-column prop="name" label="地区名称" />
-                <el-table-column prop="value" label="现存确诊" sortable="custom" />
-                <el-table-column prop="totalNum" label="累计确诊" sortable="custom" />
-            </el-table>
-        </el-card>
+        <div id="infoTbale">
+            <el-card class="box-card topCard">
+                <el-row>
+                    <div class="titel">
+                        {{ province.name }}疫情数据
+                    </div>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-card class="box-card" shadow="never">
+                            <div class="value">{{ province.econNum }}</div>
+                            <div class="type">现存确诊</div>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-card class="box-card" shadow="never">
+                            <div class="value">{{ province.value }}</div>
+                            <div class="type">累计确诊</div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <el-card class="box-card" shadow="never">
+                            <div class="value">{{ province.jwsrNum }}</div>
+                            <div class="type">境外输入</div>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-card class="box-card" shadow="never">
+                            <div class="value">{{ province.cureNum }}</div>
+                            <div class="type">累计治愈</div>
+                        </el-card>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-card class="box-card" shadow="never">
+                            <div class="value">{{ province.deathNum }}</div>
+                            <div class="type">累计死亡</div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </el-card>
+            <el-card class="box-card">
+                <el-table :data="provincesData" @sort-change='sort_change' stripe style="width: 100%">
+                    <el-table-column prop="name" label="地区名称" />
+                    <el-table-column prop="value" label="现存确诊" sortable="custom" />
+                    <el-table-column prop="totalNum" label="累计确诊" sortable="custom" />
+                </el-table>
+            </el-card>
+        </div>
     </div>
 </template>
 

@@ -70,14 +70,14 @@
 
 <style lang="less" scoped>
 .dailyInfo-title {
-	font-size: 1.5rem;
+	font-size: 1.4rem;
 	color: black;
 	padding-left: .625rem;
 	border-left: .3125rem solid cornflowerblue;
 }
 
 .dailyInfo-body {
-	padding: 0 .625rem;
+	padding:.5rem;
 }
 
 div {
@@ -86,8 +86,8 @@ div {
 	text-align: left;
 
 	.nowDate {
-		margin: 0 .625rem;
-		font-size: .875rem;
+		margin: .625rem 0;
+		font-size: .8rem;
 		color: black;
 
 		.date {
@@ -113,7 +113,7 @@ div {
 			flex-direction: column;
 
 			.dataChanges {
-				font-size: 1rem;
+				font-size: .9rem;
 				text-align: center;
 
 				.add {
@@ -135,13 +135,13 @@ div {
 			.mainData {
 				height: 1.75rem;
 				line-height: 1.75rem;
-				font-size: 1.5rem;
+				font-size: 1.4rem;
 				font-weight: 650;
 				text-align: center;
 			}
 
 			.dataType {
-				font-size: 1.375rem;
+				font-size: 1.2rem;
 				font-weight: bold;
 				text-align: center;
 			}

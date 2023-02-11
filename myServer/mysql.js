@@ -3,27 +3,24 @@ const db_config = {
         host: 'localhost',
         user: 'root',
         password: '123456',
-        port: "3306", // 默认使用3306端口号
-        database: 'node_sql' // 使用你自己创建的数据库名称,我这里使用 node_app
+        port: "3306", // 默认端口号
+        database: 'node_sql' // 数据库名称
     }
-    // 进行数据库交互
+    // 链接数据库
 function conMysql(sql) {
     let connect = mysql.createConnection(db_config)
-        // 开始链接数据库
     connect.connect(function(err) {
-            if (err) {
-                console.log(`mysql连接失败: ${err}!`)
-            } else {
-                console.log('mysql连接成功!')
-            }
-        })
-        // 返回一个Promise承诺对象
+        if (err) {
+            console.log(`连接失败: ${err}!`)
+        } else {
+            console.log('SQL连接')
+        }
+    })
     return new Promise((resolve, reject) => {
         connect.query(sql, (err, result) => {
             if (err) {
                 reject(err)
             } else {
-                // 此处需要将返回数据转为JSON再转回来,否则原数据不为任何数据类型
                 let res = JSON.parse(JSON.stringify(result))
                 closeMysql(connect)
                 resolve(res)
@@ -31,15 +28,16 @@ function conMysql(sql) {
         });
     })
 }
-// 查询成功后关闭mysql
+
+//关闭数据库
 function closeMysql(connect) {
     connect.end((err) => {
         if (err) {
-            console.log(`mysql关闭失败:${err}!`)
+            console.log(`关闭失败:${err}!`)
         } else {
-            console.log('mysql关闭成功!')
+            console.log('SQL关闭')
         }
     })
 }
-// 导出方法
+//导出
 exports.conMysql = conMysql

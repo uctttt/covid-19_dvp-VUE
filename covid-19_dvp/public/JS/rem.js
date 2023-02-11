@@ -8,7 +8,7 @@
         } else if (clientWidth <= 768) {
             document.documentElement.style.fontSize = (clientWidth / 43) + 'px'
         } else {
-            document.documentElement.style.fontSize = (clientWidth / 68) + 'px'
+            document.documentElement.style.fontSize = (clientWidth / 60) + 'px'
         }
     }
     if (!document.addEventListener) return

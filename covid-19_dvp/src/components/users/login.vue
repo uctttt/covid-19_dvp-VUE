@@ -1,7 +1,7 @@
 <template>
-    <div class="login" v-if="showContent">
-        <el-card >
-            <div class="title">登陆疫情时刻</div>
+    <div class="login">
+        <el-card>
+            <div class="title">登陆疫情实时，获取更多资讯</div>
             <el-form class="loginForm" :model="loginForm" :rules="loginRules" ref="loginFormRef">
                 <el-form-item label="" prop="username">
                     <el-input v-model.trim="loginForm.username" placeholder="请输入用户名" clearable></el-input>
@@ -11,12 +11,13 @@
                         show-password></el-input>
                 </el-form-item>
                 <el-form-item class="buttonBox">
-                    <el-button class="registerBtn" @click="">注册</el-button>
+                    <el-button class="registerBtn" @click="goRegister">注册</el-button>
                     <el-button class="loginBtn" type="primary" @click="loginCheck">登陆</el-button>
                 </el-form-item>
             </el-form>
+            <a class="goReset" href="/reset">忘记密码？</a>
         </el-card>
-        <div class="blackBackground"  @click="closeContent" @touchmove.prevent @mousewheel.prevent>
+        <div class="blackBackground" @click="closeContent" @touchmove.prevent @mousewheel.prevent>
         </div>
     </div>
 </template>
@@ -24,7 +25,7 @@
 <style lang="less" scoped>
 .login {
     z-index: 99;
-    width: 24rem;
+    width: 22rem;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -42,8 +43,8 @@
     }
 
     .title {
-        margin: 1.3rem 0.5rem;
-        font-size: 1.5rem;
+        margin: 1.3rem auto;
+        font-size: 1.4rem;
         color: cornflowerblue;
         font-weight: bold;
     }
@@ -51,13 +52,31 @@
     .el-card {
         position: relative;
         z-index: 99;
-        margin: 1.5rem;
+        margin: 1.1rem;
 
         .el-input {
-            margin: .625rem 0;
+            margin: .325rem 0;
+            height: 2.2rem;
+            width: 20rem;
+            font-size: 1.1rem;
         }
 
-        /deep/.el-form-item__content{
+        .goReset {
+            text-decoration: none;
+            color: rgb(100, 148, 237);
+            font-size: .8rem;
+            font-weight: normal;
+            position: absolute;
+            right: .2rem;
+            bottom: .3rem;
+        }
+
+        .goReset:hover {
+            color: rgb(78, 130, 226);
+            cursor: pointer;
+        }
+
+        /deep/.el-form-item__content {
             display: flex;
             justify-content: center;
 
@@ -66,10 +85,11 @@
             }
 
             .el-button {
-                height: 2rem;
+                height: 2.3rem;
+                width: 4rem;
                 font-size: 1rem;
                 border: 1px solid rgb(164, 193, 247);
-                margin:  .9375rem;
+                margin: .6rem;
             }
         }
     }
@@ -78,20 +98,21 @@
 
 <script>
 // @ is an alias to /src
+import userSystem from '@/api/userSystemAPI'
 
 export default {
-    name: 'LoginView',
+    name: 'Login',
 
     components: {
     },
 
     data() {
         return {
-            showContent:true,
             loginForm: {
                 username: '',
                 password: ''
             },
+
             loginRules: {
                 username: [
                     { required: true, message: '用户名不能为空', trigger: 'blur' },
@@ -106,18 +127,48 @@ export default {
     },
 
     methods: {
+        goRegister() {
+            this.$refs.loginFormRef.resetFields();
+            this.$router.push('/register');
+        },
+
         closeContent() {
-            this.userName = '';
-            this.password = '';
-            this.showContent = false;
+            this.$refs.loginFormRef.resetFields();
+            this.$emit('showLogin');
         },
 
         loginCheck() {
-
-        }
+            this.$refs.loginFormRef.validate(async result => {
+                if (result) {
+                    const { data: res } = await userSystem.login(this.loginForm)
+                    if (res.code === 200) {
+                        console.log(res);
+                        this.$message.success(res.msg)
+                        this.$store.commit("loginIn", true)
+                        let userInfo = {
+                            isLogin: true,
+                            username: res.data[0].username,
+                            name: res.data[0].name,
+                        };
+                        sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+                        this.closeContent();
+                        location.reload();
+                    } else {
+                        this.$message.error(res.msg)
+                    }
+                } else {
+                    return false
+                }
+            }
+            );
+        },
     },
 
     props: {
+    },
+
+    mounted() {
+        console.log(this.$store);
     },
 }
 </script>
