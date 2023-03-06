@@ -39,7 +39,7 @@ export default {
             if (!clientWidth) return;
             let fontSize;
             if (clientWidth <= 425) {
-                fontSize = (clientWidth / 40);
+                fontSize = (clientWidth / 30);
             } else if (clientWidth <= 768) {
                 fontSize = (clientWidth / 56);
             } else {
@@ -79,21 +79,32 @@ export default {
             this.info.data.forEach(ele => {
                 valueData.push(ele.value)
             });
+            
             var option = {
                 title: {
                     text: this.info.barName,
                     textStyle: {
-                        fontSize: this.getFontSize(1.5),
+                        fontSize: this.getFontSize(1.4),
                     },
                 },
                 grid: {
                     top: '18%',
                     left: '15%',
                 },
+                toolbox: {
+                    show: true,
+                    itemSize: this.getFontSize(1.1),
+                    top:'2%',
+                    right:'5%',
+                    feature: {
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
                 tooltip: {
                     trigger: 'axis',
-                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    axisPointer: {// 坐标轴指示器
+                        type: 'shadow' // 默认为直线line       
                     }
                 },
                 xAxis: {
@@ -101,7 +112,7 @@ export default {
                     axisLabel: {
                         color: '#999',
                         textStyle: {
-                            fontSize: this.getFontSize(1.3),
+                            fontSize: this.getFontSize(1.2),
                         },
                     },
                     axisTick: {
@@ -125,7 +136,7 @@ export default {
                     axisLabel: {
                         color: '#999',
                         textStyle: {
-                            fontSize: this.getFontSize(1.2),
+                            fontSize: this.getFontSize(1.1),
                         },
                         formatter: function (val) {//Y轴显示
                             if (val == 0) {
@@ -147,9 +158,9 @@ export default {
                     {
                         type: 'inside',
                         startValue: nameData[0],
-                        endValue: nameData[4],
-                        maxValueSpan: 7,
-                        minValueSpan: 3
+                        endValue: nameData[5],
+                        maxValueSpan: 8,
+                        minValueSpan: 4
                     }
                 ],
                 series: [
@@ -184,7 +195,7 @@ export default {
                     endValue: nameData[Math.min(params.dataIndex + zoomSize / 2, nameData.length - 1)]
                 });
             });
-            myChart.setOption(option);
+            myChart.setOption(option, { lazyMode: true });
             window.addEventListener(
                 'resize',
                 () => {

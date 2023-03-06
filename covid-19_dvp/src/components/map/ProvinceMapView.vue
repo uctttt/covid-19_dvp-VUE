@@ -105,7 +105,7 @@ export default {
             if (!clientWidth) return;
             let fontSize;
             if (clientWidth <= 425) {
-                fontSize = (clientWidth / 40);
+                fontSize = (clientWidth / 30);
             } else if (clientWidth <= 768) {
                 fontSize = (clientWidth / 58);
             } else {
@@ -120,7 +120,7 @@ export default {
 
         makeProvinceMap() {
             var option = {
-                //左侧小导航图标
+                //导航栏
                 visualMap: {
                     align: "left",
                     show: true,
@@ -129,7 +129,7 @@ export default {
                     type: "piecewise",
                     backgroundColor: "rgba(75, 75, 75, 0.5)",
                     textStyle: {
-                        fontSize: this.getFontSize(),
+                        fontSize: this.getFontSize(1.1),
                         color: '#ffffff',
                         fontWeight: "bold",
                     },
@@ -190,7 +190,7 @@ export default {
                     data: this.provincesData,
                 },
             }
-            this.myChartProvince.setOption(option);
+            this.myChartProvince.setOption(option, { lazyMode: true });
             window.addEventListener(
                 'resize',
                 () => {

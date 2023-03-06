@@ -255,6 +255,9 @@ export default {
     },
 
     mounted() {
+        userSystem.checkAPI().then((res) => {
+                        console.log(res);
+                })
     },
 }
 </script>

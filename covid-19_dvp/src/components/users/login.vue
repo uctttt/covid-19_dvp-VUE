@@ -1,7 +1,7 @@
 <template>
     <div class="login">
-        <el-card>
-            <div class="title">登陆疫情实时，获取更多资讯</div>
+        <el-card @touchmove.prevent @mousewheel.prevent>
+            <div class="title">登录疫情实时，获取更多资讯</div>
             <el-form class="loginForm" :model="loginForm" :rules="loginRules" ref="loginFormRef">
                 <el-form-item label="" prop="username">
                     <el-input v-model.trim="loginForm.username" placeholder="请输入用户名" clearable></el-input>
@@ -12,7 +12,7 @@
                 </el-form-item>
                 <el-form-item class="buttonBox">
                     <el-button class="registerBtn" @click="goRegister">注册</el-button>
-                    <el-button class="loginBtn" type="primary" @click="loginCheck">登陆</el-button>
+                    <el-button class="loginBtn" type="primary" @click="loginCheck">登录</el-button>
                 </el-form-item>
             </el-form>
             <a class="goReset" href="/reset">忘记密码？</a>
@@ -43,8 +43,8 @@
     }
 
     .title {
-        margin: 1.3rem auto;
-        font-size: 1.4rem;
+        margin: 1.2rem auto;
+        font-size: 1.2rem;
         color: cornflowerblue;
         font-weight: bold;
     }

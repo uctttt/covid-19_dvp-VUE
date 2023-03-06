@@ -4,7 +4,7 @@
             <div id="china" />
         </div>
         <div class="slider-demo-block">
-            <el-slider v-model="zoom" :step="1" :min="1" :max="3" :show-tooltip="false" @input="makeChinaMap" />
+            <el-slider v-model="zoom" :step="1" :min="1" :max="3" :show-tooltip="false" @input="mapZoom" />
         </div>
     </div>
 </template>
@@ -61,7 +61,7 @@ export default {
             myChart: null,
             provinceData: [],
             zoom: 1,
-            isLogin:false,
+            isLogin: false,
         }
     },
 
@@ -71,7 +71,7 @@ export default {
             if (!clientWidth) return;
             let fontSize;
             if (clientWidth <= 425) {
-                fontSize = (clientWidth / 25);
+                fontSize = (clientWidth / 30);
             } else if (clientWidth <= 768) {
                 fontSize = (clientWidth / 58);
             } else {
@@ -85,10 +85,9 @@ export default {
         },
 
         makeChinaMap() {
-            this.myChart = echarts.init(document.getElementById("china"));
             var option = {
                 backgroundColor: "rgba(230, 230, 230, 0.3)",
-                //左侧导航
+                //导航栏
                 visualMap: {
                     align: "left",
                     show: true,
@@ -122,8 +121,7 @@ export default {
                     backgroundColor: "rgba(75, 75, 75, 0.5)",
                     transitionDuration: 0.2,
                     formatter: function (params) {
-                        return "现存确诊人数<br/>" + params.data.name +
-                            ':' + params.data.value + '<br/><a href="/city/' + params.data.name + '" style="color: #FFFFFF;">查看详情</a>';
+                        return `现存确诊人数<br/>${params.data.name}:${params.data.value}<br/><a href=/city/${params.data.name} style="color: #FFFFFF;text-decoration: none;">查看详情</a>`;
                     }
                 },
                 //配置属性
@@ -172,6 +170,14 @@ export default {
                 }
             )
         },
+
+        mapZoom() {
+            this.myChart.setOption({
+                series: {
+                    zoom: this.zoom,
+                }
+            });
+        },
     },
 
     created() {
@@ -192,19 +198,20 @@ export default {
             }
         }).then(() => {
             setTimeout(() => {
+                this.myChart = echarts.init(document.getElementById("china"));
                 this.makeChinaMap();
             }, 300)
         }).catch((error) => { });
     },
 
     watch: {
-    "$store._state.data.isLogin": {
-      handler(newVal, oldVal) {
-        this.isLogin = newVal
-      },
-      immediate: true
+        "$store._state.data.isLogin": {
+            handler(newVal, oldVal) {
+                this.isLogin = newVal
+            },
+            immediate: true
+        }
     }
-  }
 };
 </script>
 

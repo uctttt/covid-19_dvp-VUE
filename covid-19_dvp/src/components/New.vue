@@ -39,19 +39,21 @@
 				<div>返回顶部</div>
 			</div>
 		</el-card>
-		<div class="newContent" @touchmove.prevent @mousewheel.prevent v-if="showContent">
+
+		<el-card class="newContent" @touchmove.prevent @mousewheel.prevent v-show="showContent">
 			<div class="contentBody">
 				<el-card>
 					<div class="contentTitle">{{ this.newsContent.title }}</div>
 					<div class="contentFrom">本条新闻来自：<span>{{ this.newsContent.infoSource }}</span></div>
 					<div class="contentTime">{{ this.newsContent.pubDate }}</div>
 					<div class="content">
-						{{ this.newsContent.summary }}<span title="前往站外网址" class="goOutside" @click="goOutsideCheck">……查看更多</span>
+						{{ this.newsContent.summary }}<span title="前往站外网址" class="goOutside"
+							@click="goOutsideCheck">……查看更多</span>
 					</div>
 				</el-card>
 			</div>
-		</div>
-		<div class="blackBackground" v-if="showContent" @click="closeContent" @touchmove.prevent @mousewheel.prevent>
+		</el-card>
+		<div class="blackBackground" v-show="showContent" @click="closeContent" @touchmove.prevent @mousewheel.prevent>
 		</div>
 	</div>
 </template>
@@ -133,7 +135,8 @@
 				font-weight: normal;
 				text-align: left;
 			}
-			.goOutside:hover{
+
+			.goOutside:hover {
 				color: rgb(78, 130, 226);
 				cursor: pointer;
 			}
@@ -233,6 +236,7 @@
 <script>
 import api from '@/api/getNcovAPI'
 import { ElMessage, ElMessageBox } from 'element-plus'
+
 export default {
 	data() {
 		return {

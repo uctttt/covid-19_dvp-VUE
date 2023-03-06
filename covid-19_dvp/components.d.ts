@@ -7,10 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Category: typeof import('./src/components/chart/Category.vue')['default']
     DailyInfo: typeof import('./src/components/info/DailyInfo.vue')['default']
-    Header: typeof import('./src/components/Header.vue')['default']
-    InfoBar: typeof import('./src/components/bar chart/infoBar.vue')['default']
-    InfoSwipe: typeof import('./src/components/InfoSwipe.vue')['default']
     Login: typeof import('./src/components/users/login.vue')['default']
     MapView: typeof import('./src/components/map/MapView.vue')['default']
     New: typeof import('./src/components/New.vue')['default']
@@ -18,6 +16,7 @@ declare module '@vue/runtime-core' {
     ProvinceMapView: typeof import('./src/components/map/ProvinceMapView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StackedLine: typeof import('./src/components/chart/StackedLine.vue')['default']
     TabView: typeof import('./src/components/TabView.vue')['default']
     WorldMapView: typeof import('./src/components/map/WorldMapView.vue')['default']
     WroldInfo: typeof import('./src/components/info/WroldInfo.vue')['default']

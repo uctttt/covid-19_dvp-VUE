@@ -36,7 +36,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/main.js"  ],
+, "src/main.ts", "src/shims-vue.d.ts", "src/shims-vue.d.ts", "src/utils/request.js", "src/store/index.js", "src/api/getNcovAPI.js", "src/api/getNcovAPI.js", "src/store/index.js"  ],
   "exclude": [
     "node_modules",
     "dist"

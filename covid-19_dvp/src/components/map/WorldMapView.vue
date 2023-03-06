@@ -4,7 +4,7 @@
             <div id="world" />
         </div>
         <div class="slider-demo-block">
-            <el-slider v-model="zoom" :step="3" :min="1" :max="15" :show-tooltip="false" @input="makeWorldMap" />
+            <el-slider v-model="zoom" :step="3" :min="1" :max="15" :show-tooltip="false" @input="mapZoom" />
         </div>
     </div>
 </template>
@@ -70,7 +70,7 @@ export default {
             if (!clientWidth) return;
             let fontSize;
             if (clientWidth <= 425) {
-                fontSize = (clientWidth / 25);
+                fontSize = (clientWidth / 30);
             } else if (clientWidth <= 768) {
                 fontSize = (clientWidth / 58);
             } else {
@@ -84,11 +84,10 @@ export default {
         },
 
         makeWorldMap() {
-            this.myChartWorld = echarts.init(document.getElementById("world"));
             var option = {
                 backgroundColor: "rgba(230, 230, 230, 0.3)",
                 title: {},
-                //左侧导航隐藏
+                //导航栏隐藏
                 visualMap: {
                     show: false,
                 },
@@ -341,7 +340,15 @@ export default {
                     }, 300)
                 }
             )
-        }
+        },
+
+        mapZoom() {
+            this.myChartWorld.setOption({
+                series: {
+                    zoom: this.zoom,
+                }
+            });
+        },
     },
 
     created() {
@@ -362,6 +369,7 @@ export default {
             }
         }).then(() => {
             setTimeout(() => {
+                this.myChartWorld = echarts.init(document.getElementById("world"));
                 this.makeWorldMap();
             }, 300)
         }).catch((error) => { });

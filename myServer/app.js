@@ -1,34 +1,25 @@
+//加载模块
 const express = require('express')
-const app = express()
-    // 设置跨域
+
 const cors = require('cors')
-app.use(cors())
-    // 处理POST参数
+
 const bodyParser = require('body-parser')
+
 const multiparty = require('connect-multiparty')
-    // 处理 x-www-form-urlencoded
+
+const app = express()
+
+//处理跨域与各种格式的传参
+app.use(cors())
 app.use(bodyParser.urlencoded({
     extended: true
-}));
-
-// 处理 application/json
+}))
 app.use(bodyParser.json())
-
-// 处理 mutipart/form-data
 app.use(multiparty())
 
-// 测试接口
+//启动服务器
 app.listen(3000, () => {
-    console.log(`已运行于 http://127.0.0.1:' ${3000}，接口包含‘/getUser’、‘/login’、‘/register’、‘/reset’、‘/checkUser’方法`);
-})
-
-let { conMysql } = require('./mysql')
-
-app.get('/getUser', (req, res) => {
-    let sql = 'select * from users'
-    conMysql(sql).then(result => {
-        res.send(result)
-    })
+    console.log(`服务器已运行于3000端口`);
 })
 
 class Response {
@@ -39,6 +30,8 @@ class Response {
         this.data = data;
     }
 }
+
+const { conMysql } = require('./mysql')
 
 //检测数据库链接
 app.get('/getUser', (req, res) => {
