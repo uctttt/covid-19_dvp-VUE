@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     ProvinceMapView: typeof import('./src/components/map/ProvinceMapView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Rumors: typeof import('./src/components/Rumors.vue')['default']
     StackedLine: typeof import('./src/components/chart/StackedLine.vue')['default']
     TabView: typeof import('./src/components/TabView.vue')['default']
     WorldMapView: typeof import('./src/components/map/WorldMapView.vue')['default']

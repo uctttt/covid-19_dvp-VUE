@@ -12,6 +12,7 @@ const db_config = {
 
 // 链接数据库
 function conMysql(sql) {
+    // db_config为数据库的接口、密码等信息
     let connect = mysql.createConnection(db_config)
     connect.connect(function(err) {
         if (err) {
@@ -44,5 +45,5 @@ function closeMysql(connect) {
     })
 }
 
-//导出
+//方法导出
 exports.conMysql = conMysql

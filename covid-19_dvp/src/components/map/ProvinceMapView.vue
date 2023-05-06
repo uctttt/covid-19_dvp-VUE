@@ -82,6 +82,7 @@ export default {
             default: '',
         },
     },
+    
     methods: {
         sort_change(column) {
             this.proptype = column.prop;
@@ -190,7 +191,7 @@ export default {
                     data: this.provincesData,
                 },
             }
-            this.myChartProvince.setOption(option, { lazyMode: true });
+            this.myChartProvince.setOption(option);
             window.addEventListener(
                 'resize',
                 () => {

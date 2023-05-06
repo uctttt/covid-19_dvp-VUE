@@ -75,7 +75,7 @@
 		</div>
 	</div>
 
-	<el-card class="about" v-show="showAbout">
+	<el-card class="about" v-show="showAbout" >
 		<div class="aboutTitle" @touchmove.prevent @mousewheel.prevent>—— 关于页面 ——</div>
 		<div class="aboutContent">
 			<p>
@@ -250,7 +250,7 @@ export default {
 			const date = new Date(time);
 			const Y = date.getFullYear();
 			const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-			const D = date.getDate() + 1 < 10 ? '0' + (date.getDate()) : date.getDate();
+			const D = date.getDate() + 1 <= 10 ? '0' + (date.getDate()) : date.getDate();
 			const h = date.getHours() < 10 ? '0' + (date.getHours()) : date.getHours();
 			const m = date.getMinutes() < 10 ? '0' + (date.getMinutes()) : date.getMinutes();
 			return ` ${Y}年 ${M}月${D}日 ${h}时${m}分 `;

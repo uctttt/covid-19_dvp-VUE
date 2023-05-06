@@ -5,6 +5,7 @@ const HomeView = require("../views/HomeView.vue");
 const CityView = require("../views/CityView.vue");
 const RegisterView = require("../views/RegisterView.vue");
 const ResetView = require("../views/ResetView.vue");
+const RumorsView = require("../views/RumorsView.vue");
 
 const routes = [{
         path: '/',
@@ -27,6 +28,12 @@ const routes = [{
         path: '/reset',
         name: 'ResetView',
         component: ResetView["default"],
+        props: true
+    },
+    {
+        path: '/rumors',
+        name: 'RumorsView',
+        component: RumorsView["default"],
         props: true
     },
 ];

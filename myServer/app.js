@@ -1,4 +1,4 @@
-//加载模块
+//加载npm安装的模块
 const express = require('express')
 
 const cors = require('cors')
@@ -9,7 +9,7 @@ const multiparty = require('connect-multiparty')
 
 const app = express()
 
-//处理跨域与各种格式的传参
+//使用模块处理跨域与各种格式参数的传参问题
 app.use(cors())
 app.use(bodyParser.urlencoded({
     extended: true
@@ -90,7 +90,9 @@ app.post('/register', (req, res) => {
 
 //查询用户
 app.post('/checkUser', (req, res) => {
+    // 定义数据库操作
     let sql = `select * from users where username = '${req.body.username}'`;
+    // 链接数据库
     conMysql(sql).then(result => {
         if (result && result.length) {
             let response = new Response(true, '查询到用户信息，进入下一步', 200, result);

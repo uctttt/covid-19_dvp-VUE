@@ -330,7 +330,7 @@ export default {
                     data: this.countriesData//数据来源
                 }
             }
-            this.myChartWorld.setOption(option, { lazyMode: true });
+            this.myChartWorld.setOption(option);
             window.addEventListener(
                 'resize',
                 () => {

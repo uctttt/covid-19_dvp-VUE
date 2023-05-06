@@ -12,7 +12,6 @@ const base = {
 
 
 const userSystem = {
-    //疫情数据
     login(data) {
         return axios.post(base.headerUrl + base.loginUrl, data)
     },

@@ -12,12 +12,15 @@
 							<div class="titleSecond">点击图表两侧切换榜单</div>
 						</div>
 						<el-carousel arrow="always" indicator-position="outside" :autoplay=false>
+						    <!-- 现存确诊病例榜单 -->
 							<el-carousel-item>
 								<category :info="infoActive" />
 							</el-carousel-item>
+							<!-- 累计确诊病例榜单 -->
 							<el-carousel-item>
 								<category :info="infoCount" />
 							</el-carousel-item>
+							<!-- 境外输入病例榜单 -->
 							<el-carousel-item>
 								<category :info="infoImported" />
 							</el-carousel-item>
@@ -27,7 +30,7 @@
 					<div class="chartTitle">
 						<div class="titleFirst">全国疫情变化趋势</div>
 					</div>
-					<StackedLine :info="StackedLineInfo" v-if="loaded" />
+					<StackedLine :info="DailyInfoData" v-if="loaded" />
 
 					<div class="cityClearProgress" v-if="loaded">
 						<div class="chartTitle">
@@ -239,18 +242,6 @@ export default {
 				barName: '累计确诊病例',
 				data: []
 			},
-
-			StackedLineInfo: {
-				barName: 'stackedLine',
-				series: [ 
-					['times'],
-					['累计确诊'], 
-					['当前确诊'],
-					['累计治愈'],
-					['累计死亡'],
-				],
-			},
-
 		}
 	},
 
@@ -281,21 +272,9 @@ export default {
 		const getClearProgress = setInterval(() => {
 			this.clearProgress = (this.DailyInfoData.clearCity / this.DailyInfoData.cityNum).toFixed(2) * 100;
 			if (!isNaN(this.clearProgress)) {
-				let randomNum = ((Math.random() * 175).toFixed(0)) - 0;
-				let radomData = this.DailyInfoData.historyData.slice(randomNum, randomNum + 35);
-				radomData.reverse();
-				
 				this.infoImported = this.RankInfo.importedRank;
 				this.infoActive = this.RankInfo.activeRank;
 				this.infoCount = this.RankInfo.countRank;
-
-				radomData.forEach(ele => {
-					this.StackedLineInfo.series[0].push(ele.date)
-					this.StackedLineInfo.series[1].push(ele.cn_conNum)
-					this.StackedLineInfo.series[2].push(ele.cn_econNum)
-					this.StackedLineInfo.series[3].push(ele.cn_cureNum)
-					this.StackedLineInfo.series[4].push(ele.cn_deathNum)
-				});
 
 				this.loaded = true;
 				stop();

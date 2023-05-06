@@ -1,3 +1,5 @@
+/* 移动端窄屏判断 */
+
 @media (max-width: 425px) {
     html {
         font-size: 17px;
@@ -8,6 +10,9 @@
         font-size: 1rem;
     }
 }
+
+
+/* 移动端宽屏判断 */
 
 @media(min-width: 426px) and (max-width: 768px) {
     html {
@@ -25,6 +30,9 @@
         display: none;
     }
 }
+
+
+/* PC端宽屏判断 */
 
 @media (min-width: 769px) {
     html {

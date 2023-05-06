@@ -4,7 +4,8 @@
             <div id="china" />
         </div>
         <div class="slider-demo-block">
-            <el-slider v-model="zoom" :step="1" :min="1" :max="3" :show-tooltip="false" @input="mapZoom" />
+            <el-slider v-model="zoom" :step="1" :min="1" :max="3" 
+            :show-tooltip="false" @input="mapZoom" />
         </div>
     </div>
 </template>
@@ -159,7 +160,7 @@ export default {
                     data: this.provinceData//数据来源
                 }
             }
-            this.myChart.setOption(option, { lazyMode: true });
+            this.myChart.setOption(option);
             window.addEventListener(
                 'resize',
                 () => {
@@ -170,7 +171,7 @@ export default {
                 }
             )
         },
-
+        // 将属性映射至地图缩放
         mapZoom() {
             this.myChart.setOption({
                 series: {

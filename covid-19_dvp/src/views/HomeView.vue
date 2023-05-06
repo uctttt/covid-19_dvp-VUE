@@ -8,12 +8,65 @@
       <div class="topNav">
         <div class="loginBtnTop" @click="loginShow">{{ yourName }}</div>
       </div>
-      <DailyInfo :v-if="loaded" :DailyInfoData="DailyInfoData" />
+      <DailyInfo :v-if="loaded && this.yourPosition" :DailyInfoData="DailyInfoData" />
+      <div class="goRumors">
+        <el-icon>
+            <Warning />
+          </el-icon>
+        <a href="/rumors">
+         疫情辟谣
+        </a>
+      </div>
+      <div class="userPosition" v-if="isLogin">
+        <el-collapse v-model="activeNames">
+          <el-collapse-item name="1">
+            <template #title>
+              <div class="title">
+                <el-icon>
+                  <Location />
+                </el-icon>
+                {{ this.yourPosition.province }}疫情数据
+              </div>
+              <info-filled />
+            </template>
+            <div class="content">
+              <el-row class="position-list">
+                <el-col :span="8">
+                  <li class="info-content">
+                    <div class="mainData" style="color: rgb(255, 0, 0);">{{ yourPosition.confirmedCount }}</div>
+                    <div class="dataType">累计确诊</div>
+                  </li>
+                </el-col>
+
+                <el-col :span="8">
+                  <li class="info-content">
+                    <div class="mainData" style="color: rgb(0, 180, 0);">{{ yourPosition.curedCount }}</div>
+                    <div class="dataType">累计治愈</div>
+                  </li>
+                </el-col>
+
+                <el-col :span="8">
+                  <li class="info-content">
+                    <div class="mainData" style="color: rgb(80, 80, 80);border-right:none">{{ yourPosition.deadCount }}
+                    </div>
+                    <div class="dataType">累计死亡</div>
+                  </li>
+                </el-col>
+              </el-row>
+              <div class="checkMore">
+                <a :href=address style="color: white;text-decoration: none;">查看更多</a>
+              </div>
+            </div>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
       <TabView :v-if="loaded" :RankInfo="RankInfo" :DailyInfoData="DailyInfoData" />
       <div class="coverBox" v-if="!isLogin">
         <el-button class="loginBtnBtm" @click="loginShow">登录查看更多</el-button>
       </div>
     </div>
+
+    <el-backtop :right="100" :bottom="100" style="z-index: 999;"/>
 
     <div class="cover" v-if="!isLogin" />
     <Login @showLogin="loginShow" v-if="showLogin" />
@@ -85,6 +138,45 @@
       cursor: pointer;
     }
   }
+
+
+  .goRumors {
+    display: flex;
+    vertical-align: middle;
+    justify-content: center;
+    margin-bottom: .9rem;
+    .el-icon {
+      margin: 0;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: rgb(255, 199, 15);
+        margin-right: .2rem;
+      }
+    a {
+      line-height: 1.6rem;
+      font-size: 1.1rem;
+      text-decoration: none;
+      color: rgb(122, 122, 122);
+    }
+  }
+
+  .userPosition {
+    .title {
+      font-size: 1.1rem;
+      margin: 0 1rem;
+    }
+
+    .content {
+      font-size: 1.3rem;
+
+      .checkMore {
+        background-color: rgb(100, 150, 250);
+        margin: 1rem auto 0;
+        border-radius: 2rem;
+        width: 8rem;
+      }
+    }
+  }
 }
 
 .coverBox {
@@ -104,6 +196,27 @@
   }
 }
 
+/deep/.el-backtop{
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(17.5rem);
+  width: 2rem;
+  height: 2rem;
+  background-color: cornflowerblue;
+  
+  .el-backtop__icon {
+    font-size: 1rem;
+    color: white;
+}
+}
+/deep/.el-backtop:hover{
+  background-color: white;
+  
+  .el-backtop__icon {
+    color: cornflowerblue;
+}
+}
 .cover {
   position: fixed;
   box-sizing: content-box;
@@ -113,6 +226,29 @@
   width: 100vw;
   background-color: rgba(210, 210, 210, 0.15);
 }
+
+.info-content {
+  margin: .625rem 0;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  .mainData {
+    height: 1.75rem;
+    line-height: 1.75rem;
+    font-size: 1.3rem;
+    font-weight: 650;
+    text-align: center;
+    border-right: 1px solid rgb(151, 151, 151);
+  }
+
+  .dataType {
+    color: rgb(54, 54, 54);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+  }
+}
 </style>
 
 <script>
@@ -121,6 +257,7 @@ import DailyInfo from '@/components/info/DailyInfo'
 import Login from '@/components/users/login'
 import TabView from '@/components/TabView'
 import api from '@/api/getNcovAPI'
+import axios from "../utils/request"
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 export default {
@@ -137,10 +274,20 @@ export default {
       showLogin: false,
       isLogin: false,
       yourName: '未登录',
+      yourPosition: {
+        province: '',
+        city: '',
+        confirmedCount: "",//累计确诊
+        curedCount: "",//累计治愈
+        deadCount: "",//累计死亡
+      },
+
+      address: '',
 
       styleSet: {
         opacity: 1,
       },
+
       DailyInfoData: {//最新疫情信息
         modifyTime: "",//截止时间
         currentConfirmedCount: "",//现存确诊
@@ -183,6 +330,20 @@ export default {
   },
 
   methods: {
+    getChange(num) {
+      var incr = '';
+      if (num > 0) {
+        incr = `较昨日+${num}`;
+      } else if (num == 0) {
+        incr = `较昨日无变化`;
+      } else if (num < 0) {
+        incr = `较昨日${num}`;
+      } else {
+        incr = `暂无数据`;
+      }
+      return incr
+    },
+
     changeOpacity() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       let opa = (1 - (scrollTop.toFixed(2) / 500)).toFixed(1);
@@ -226,24 +387,22 @@ export default {
   },
 
   created() {
-    //将用户信息存储至会话
+    //调用会话存储
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     //调用store中的loginIn，改变其中isLogin的状态
     if (userInfo !== null) {
       this.$store.commit("loginIn", true);
       this.yourName = `欢迎，${userInfo.name}`;
+      this.yourPosition.province = userInfo.position.province;
+      this.yourPosition.city = userInfo.position.city;
+      this.address = `/city/${this.yourPosition.province}`
     }
-  },
-
-  mounted() {
-    //检测页面滚动
-    window.addEventListener('scroll', this.changeOpacity)
 
     //调用api获取数据
     api.getNcov().then((res) => {
       if (res.status === 200) {
         let data = res.data.data;
-
+        // 排序规则
         function fuc(a, b) {
           return b.value - a.value;
         }
@@ -265,8 +424,14 @@ export default {
             name: element.name,
             value: element.value
           });
-        });
 
+          if (element.name === this.yourPosition.province) {
+            this.yourPosition.confirmedCount = element.econNum;
+            this.yourPosition.deadCount = element.deathNum;
+            this.yourPosition.curedCount = element.cureNum;
+          }
+        });
+        // 排序并选取前15条数据
         this.RankInfo.activeRank.data.sort(fuc).slice(15)
         this.RankInfo.importedRank.data.sort(fuc).slice(15)
         this.RankInfo.countRank.data.sort(fuc).slice(15)
@@ -292,6 +457,17 @@ export default {
     }).catch((error) => {
       console.log(error);
     });
+
+    axios.get("/baike/item/%E6%96%B0%E5%9E%8B%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92%E8%82%BA%E7%82%8E/24282529?fr=aladdin").then(res=>{
+      console.log(res.data);
+    }).catch((err)=>{
+      console.log(err);
+    })
+  },
+
+  mounted() {
+    //检测页面滚动
+    window.addEventListener('scroll', this.changeOpacity)
   },
 
   watch: {

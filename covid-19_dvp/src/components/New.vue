@@ -274,8 +274,6 @@ export default {
 		openContent(item) {
 			this.showContent = true;
 			this.newsContent = item;
-			console.log(this.newsContent);
-			console.log(this.newsContent.summary);
 		},
 
 		closeContent() {
@@ -312,7 +310,8 @@ export default {
 		},
 	},
 
-	mounted() {
+	created() {
+	
 		api.getNcovNews(1, 50).then((res) => {
 			if (res.status === 200) {
 				let data = res.data

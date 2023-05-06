@@ -112,7 +112,7 @@ export default {
                     axisLabel: {
                         color: '#999',
                         textStyle: {
-                            fontSize: this.getFontSize(1.2),
+                            fontSize: this.getFontSize(1.1),
                         },
                     },
                     axisTick: {
@@ -158,7 +158,7 @@ export default {
                     {
                         type: 'inside',
                         startValue: nameData[0],
-                        endValue: nameData[5],
+                        endValue: nameData[6],
                         maxValueSpan: 8,
                         minValueSpan: 4
                     }
@@ -187,15 +187,14 @@ export default {
                     }
                 ]
             };
-            const zoomSize = 4;
             myChart.on('click', function (params) {
                 myChart.dispatchAction({
                     type: 'dataZoom',
-                    startValue: nameData[Math.max(params.dataIndex - zoomSize / 2, 0)],
-                    endValue: nameData[Math.min(params.dataIndex + zoomSize / 2, nameData.length - 1)]
+                    startValue: nameData[Math.max(params.dataIndex - 2, 0)],
+                    endValue: nameData[Math.min(params.dataIndex + 2, nameData.length - 1)]
                 });
             });
-            myChart.setOption(option, { lazyMode: true });
+            myChart.setOption(option);
             window.addEventListener(
                 'resize',
                 () => {

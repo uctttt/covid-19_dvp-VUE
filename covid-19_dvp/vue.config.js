@@ -24,6 +24,23 @@ module.exports = defineConfig({
                 changeOrigin: true,
             },
 
+            '/poi': {
+                target: 'https://apis.map.qq.com', //接口域名
+                secure: true, //是否https接口
+                changeOrigin: true, //设置跨域
+                pathRewrite: { //路径重置
+                    '^/poi': ''
+                }
+            },
+
+            '/baike': {
+                target: 'https://baike.baidu.com', //接口域名
+                secure: true, //是否https接口
+                changeOrigin: true, //设置跨域
+                pathRewrite: { //路径重置
+                    '^/baike': ''
+                }
+            }
         },
     },
 

@@ -98,7 +98,9 @@
 
 <script>
 // @ is an alias to /src
+//接口引入
 import userSystem from '@/api/userSystemAPI'
+import api from '@/api/getNcovAPI'
 
 export default {
     name: 'Login',
@@ -108,11 +110,16 @@ export default {
 
     data() {
         return {
+            userPosition:  {
+                province: '',
+                city: '',
+            },
+
             loginForm: {
                 username: '',
                 password: ''
             },
-
+            // 设置用户名与密码的过滤格式
             loginRules: {
                 username: [
                     { required: true, message: '用户名不能为空', trigger: 'blur' },
@@ -138,17 +145,19 @@ export default {
         },
 
         loginCheck() {
+            //提交表单数据，判断登陆
             this.$refs.loginFormRef.validate(async result => {
                 if (result) {
                     const { data: res } = await userSystem.login(this.loginForm)
                     if (res.code === 200) {
-                        console.log(res);
                         this.$message.success(res.msg)
                         this.$store.commit("loginIn", true)
+                        //登陆成功时，使用会话存储保存用户信息
                         let userInfo = {
                             isLogin: true,
                             username: res.data[0].username,
                             name: res.data[0].name,
+                            position: this.userPosition,
                         };
                         sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
                         this.closeContent();
@@ -159,16 +168,21 @@ export default {
                 } else {
                     return false
                 }
-            }
-            );
+            });
         },
     },
 
     props: {
     },
 
-    mounted() {
-        console.log(this.$store);
+    created() {
+        api.getPosition().then((res) => {
+            let province=res.data.result.ad_info.province
+            let city=res.data.result.ad_info.city
+            this.userPosition.province = province.slice(0,province.length-1);
+            this.userPosition.city = city.slice(0,city.length-1);
+        }).catch((error) => {
+        });
     },
 }
 </script>

@@ -6,8 +6,7 @@
                     <Back />
                 </el-icon> 返回</el-button>
         </div>
-        <ProvinceMap :provincesName="this.city" />
-        <ProvinceInfo :provincesName="this.city"/>
+        <Rumors />
     </div>
 </template>
 
@@ -36,26 +35,17 @@
 
 <script>
 // @ is an alias to /src
-import ProvinceMap from '@/components/map/ProvinceMapView.vue'
-import ProvinceInfo from '@/components/info/ProvinceInfo.vue'
+import Rumors from '@/components/Rumors.vue'
 
 export default {
-    name: 'CityView',
+    name: 'RumorsView',
     components: {
-    ProvinceMap,
-    ProvinceInfo,
+        Rumors
 },
     methods: {
         backHome() {
             this.$router.push('/')
         }
     },
-    props: {
-        //接收城市名
-        city: {
-            type: String,
-            default: '',
-        }
-    }
 }
 </script>
