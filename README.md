@@ -13,10 +13,10 @@
 <br/><br/>
 <img src="https://github.com/uctttt/covid-19_dvp-VUE/blob/master/demonstration/main.png">
 <hr/>
-图表组件
+图表资讯组件
 <br/><br/>
 <img src="https://github.com/uctttt/covid-19_dvp-VUE/blob/master/demonstration/RefImg1.png">
 <hr/>
-省份详情组件
+省份详情页面
 <br/><br/>
 <img src="https://github.com/uctttt/covid-19_dvp-VUE/blob/master/demonstration/RefImg2.png">
