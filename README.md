@@ -10,13 +10,13 @@
 部分页面效果
 <hr/>
 主页
-<br/>
+<br/><br/>
 <img src="https://github.com/uctttt/covid-19_dvp-VUE/blob/master/demonstration/main.png">
 <hr/>
 图表组件
-<br/>
+<br/><br/>
 <img src="https://github.com/uctttt/covid-19_dvp-VUE/blob/master/demonstration/RefImg1.png">
 <hr/>
 省份详情组件
-<br/>
+<br/><br/>
 <img src="https://github.com/uctttt/covid-19_dvp-VUE/blob/master/demonstration/RefImg2.png">
